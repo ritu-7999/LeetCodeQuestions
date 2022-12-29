@@ -1,0 +1,61 @@
+class Solution {
+    public int[] getOrder(int[][] tasks) {
+        int n = tasks.length;
+
+        //PART A
+        PriorityQueue<Pair> pq = new PriorityQueue<>((x,y) -> {
+            if(x.pTime == y.pTime){
+                return Integer.compare(x.idx, y.idx);
+            }else{
+                return Integer.compare(x.pTime, y.pTime);
+            }
+        });
+        //PART A ENDS
+        
+        //PART B
+        Array [] arr = new Array[n];       
+        for(int i = 0; i<n; i++) arr[i] = new Array(i, tasks[i][0], tasks[i][1]);
+        Arrays.sort(arr, (a, b) -> Integer.compare(a.eTime, b.eTime));
+        //PART B ENDS
+
+        //PART C
+        int clk = arr[0].eTime;
+        int x = 0;
+        int ans [] = new int[tasks.length];
+        int i = 0;
+        
+        while(!pq.isEmpty() || i<n){
+            while(i<n && arr[i].eTime <= clk){
+                pq.offer(new Pair(arr[i].idx, arr[i].pTime));
+                i++;
+            }
+            
+            if(!pq.isEmpty()){
+                clk += pq.peek().pTime;
+                ans[x] = pq.poll().idx;
+                x++;
+            }else if(pq.isEmpty()){
+                clk = arr[i].eTime;
+            }
+        }
+        return ans;
+    }
+}
+
+class Pair{
+    int idx, pTime;
+    public Pair(int _idx, int _pTime){
+        this.idx = _idx;
+        this.pTime = _pTime;
+    }
+}
+
+class Array{
+    int idx, eTime, pTime;
+    public Array(int  _idx, int _eTime, int _pTime){
+        this.idx = _idx;
+        this.eTime = _eTime;
+        this.pTime = _pTime;
+
+    }
+}
