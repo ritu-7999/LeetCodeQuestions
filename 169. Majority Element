@@ -1,0 +1,15 @@
+class Solution {
+    public int majorityElement(int[] nums) {
+    int c=0,maj=0;
+    for(int x:nums){
+        if(c==0){
+            maj=x;
+            c++;
+        }
+        else if(x==maj){ c++;}
+        else {c--;}
+    }
+    return maj;
+        
+    }
+}
