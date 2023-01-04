@@ -1,0 +1,33 @@
+class Solution {
+    public List<Integer> spiralOrder(int[][] ma) {
+        ArrayList<Integer>a=new ArrayList<>();
+        int n=ma.length;
+        int m=ma[0].length;
+        int minr=0,maxr=n-1;
+        int minc=0,maxc=m-1;
+       int c=0;
+    while(c<n*m){
+            for(int j=minc;j<=maxc && c<n*m;j++){
+                a.add(ma[minr][j]);
+                c++;
+            }
+            minr++;
+            for(int j=minr;j<=maxr && c<n*m;j++){
+                a.add(ma[j][maxc]);
+               c++;
+            }
+            maxc--;
+             for(int j=maxc;j>=minc && c<n*m;j--){
+                 a.add(ma[maxr][j]);
+                c++;
+            }
+            maxr--;
+             for(int j=maxr;j>=minr && c<n*m;j--){
+                   a.add(ma[j][minc]);c++;
+            }
+            minc++;
+           
+        }
+        return a;
+    }
+}
