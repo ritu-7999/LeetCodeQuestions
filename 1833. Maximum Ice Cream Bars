@@ -1,0 +1,18 @@
+class Solution {
+    public int maxIceCream(int[] costs, int coins) {
+        int c=0;
+        int s=0;
+        Arrays.sort(costs);
+        for(int x:costs){
+            if(coins>=x && (s+x)<=coins){
+             c++;
+            s+=x;
+            }
+            if(s==coins){
+                break;
+            }
+          
+        }
+        return c;
+    }
+}
