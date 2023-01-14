@@ -1,0 +1,56 @@
+var smallestEquivalentString = function(s1, s2, baseStr) {
+    let len = s1.length;
+    let res = [];
+    for(let i=0;i<len;i++) {
+        if(s1[i] === s2[i] && res.length === 0) {
+             res.push([s1[i]]);
+        }
+        else res = handleInsertionForTwo(res, s1[i], s2[i])
+    }
+    res = res.map(arr => Array(...new Set(arr)).sort());
+    return getOutputStr(baseStr, res);
+};
+
+function getOutputStr(baseStr, res) {
+    let outPutStr = "";
+    let baseStrLen = baseStr.length;
+    for(let i=0;i<baseStrLen;i++) {
+        let flag = 1
+        res.forEach(arr => {
+            if(!flag) return;
+            if(arr.indexOf(baseStr[i]) >= 0) {
+                outPutStr += arr[0];
+                flag = 0;
+                return;
+            }
+        });
+        outPutStr += !!flag ? baseStr[i] : "";
+    }
+    return outPutStr;
+}
+
+function handleInsertionForTwo(res, val, val2) {
+    if(res.length === 0) {
+        res.push([val,val2])
+        return res
+    }
+    let flag = 1
+    let newIndex = -1;
+    for(let i=0;i<res.length;i++) {
+        let arr = res[i];
+        let index1 = arr.indexOf(val);
+        let index2 = arr.indexOf(val2);
+        if(index1 !== -1 || index2 !== -1) {
+            if(!!flag) {
+                index1 === -1 && arr.push(val);
+                index2 === -1 && arr.push(val2);
+                flag = 0;
+                newIndex = i
+            } else {
+                res[newIndex].push(...arr)
+            }
+        }
+    }
+    !!flag && res.push([val,val2]);
+    return res;
+};
