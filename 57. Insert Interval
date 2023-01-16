@@ -1,0 +1,21 @@
+class Solution {
+    public int[][] insert(int[][] v, int[] ne) {
+       List<int[]>a=new ArrayList<>();
+        int i=0;
+        int n=v.length;
+        while(i<n && v[i][1]<ne[0]){
+            a.add(v[i++]);
+        }
+        int[] m=ne;
+        while(i<n && v[i][0] <=ne[1]){
+            m[0]=Math.min(m[0],v[i][0]);
+             m[1]=Math.max(m[1],v[i++][1]);
+             
+        }
+        a.add(m);
+          while(i<n){
+            a.add(v[i++]);
+        }
+       return a.toArray(new int[a.size()][2]);
+    }
+}
