@@ -1,0 +1,19 @@
+class Solution {
+    public List<List<Integer>> findSubsequences(int[] nums) {
+       Set<List<Integer>>list=new LinkedHashSet<>();
+        List<Integer>instance=new ArrayList<>();
+        findAns(0,list,instance,nums);
+        return new ArrayList<>(list);
+    }
+    static void findAns(int index,Set<List<Integer>>ans,List<Integer>instance,int[]putIt){
+        if(index==putIt.length){
+            if(instance.size()>=2) ans.add(instance);
+            return;
+        }
+        List<Integer>include=new ArrayList<>(instance);
+        List<Integer>exclude=new ArrayList<>(instance);
+        if(include.isEmpty()||putIt[index]>=include.get(include.size()-1)){include.add(putIt[index]);}
+        findAns(index+1,ans,include,putIt);
+        findAns(index+1,ans,exclude,putIt);
+    }
+}
