@@ -1,0 +1,46 @@
+class SummaryRanges {
+   TreeSet<Integer> s;
+    public SummaryRanges() {
+      s=new TreeSet<>();
+    }
+    
+    public void addNum(int value) {
+        s.add(value);
+    }
+    
+    public int[][] getIntervals() {
+          if(s.isEmpty()){
+            return new int[0][];
+        }
+    List<int[]>a=new ArrayList<>();
+    int left=-1;
+    int right=-1;
+    for(Integer x: s){
+if(right==-1){
+    left=x;
+    right=x;
+}
+else if(x==right+1){
+    right++;
+}
+else{
+    a.add(new int[]{left,right});
+    left=x;
+    right=x;
+}
+    }
+     a.add(new int[]{left,right});
+    int[][] intervals= new int[a.size()][2];
+        for(int i = 0; i < a.size(); i++){
+            intervals[i] = a.get(i);
+        }
+        return intervals;
+    }
+}
+
+/**
+ * Your SummaryRanges object will be instantiated and called as such:
+ * SummaryRanges obj = new SummaryRanges();
+ * obj.addNum(value);
+ * int[][] param_2 = obj.getIntervals();
+ */
