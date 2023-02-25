@@ -1,0 +1,16 @@
+class Solution {
+    public int maxProfit(int[] p) {
+      int max=0;
+      int curmin=Integer.MAX_VALUE;
+      for(int i=0;i<p.length;i++){
+          if(p[i]<curmin){
+              curmin=p[i];
+          }
+          else{
+              if(p[i]-curmin>max){
+                  max=p[i]-curmin;
+              }
+          }
+      }
+      return max;
+}}
