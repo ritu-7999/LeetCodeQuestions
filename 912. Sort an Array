@@ -1,0 +1,55 @@
+class Solution {
+    static void merge(int[] nums,int s,int e,int m){
+        int[] l1=new int[m-s+1];
+        int [] l2=new int[e-m];
+        int n=l1.length;
+        int m1=l2.length;
+        for(int i=0;i<n;i++){
+            l1[i]=nums[s+i];
+        }
+         for(int i=0;i<m1;i++){
+            l2[i]=nums[m+i+1];
+        }
+        int i=0;
+        int k=s;
+        int j=0;
+        while(i<n && j<m1){
+            if(l1[i]<l2[j]){
+                nums[k]=l1[i];
+                i++;
+            }
+            else{
+               nums[k]=l2[j];
+                j++;  
+            }
+            k++;
+        }
+        if(j==m1){
+            while(i<n){
+                nums[k]=l1[i];
+                i++;
+                k++;  
+            }
+        }
+         if(i==n){
+            while(j<m1){
+                nums[k]=l2[j];
+                j++;
+                k++;  
+            }
+        }
+    }
+    static void mergeSort(int[] nums,int s,int e){
+        if(s<e){
+            int m=s+(e-s)/2;
+           mergeSort(nums,s,m);
+          mergeSort(nums,m+1,e);
+           merge(nums,s,e,m);
+        }
+        // return nums;
+    }
+    public int[] sortArray(int[] nums) {
+        mergeSort(nums,0,nums.length-1);
+        return nums;
+    }
+}
