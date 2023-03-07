@@ -1,0 +1,27 @@
+class Solution {
+    public long minimumTime(int[] time, int totalTrips) {
+        long l=Integer.MAX_VALUE;
+        long r=0;
+        long min=Integer.MAX_VALUE;
+        for(int t:time){
+          l=Math.min(t,l);
+              min=Math.min(t,min);
+        }
+         r=totalTrips*min;
+        while(l<r){
+            long m=l+(r-l)/2;
+            long t=0;
+            for(int x:time){
+            t+=m/x;
+            }
+            if(t>=totalTrips){
+                 r=m;  
+            }
+            else{
+                 l=m+1;
+            }
+
+        }
+        return l;
+    }
+}
