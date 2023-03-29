@@ -1,0 +1,16 @@
+class Solution {
+    public int maxSatisfaction(int[] satisfaction) {
+        Arrays.sort(satisfaction);
+        int psum=0;
+        int rsum=0;
+        int n=satisfaction.length;
+        for(int i=n-1;i>=0;i--){
+            psum+=satisfaction[i];
+            if(psum<0){
+                break;
+            }
+            rsum+=psum;
+        }
+        return rsum;
+    }
+}
